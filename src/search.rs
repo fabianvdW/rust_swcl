@@ -13,6 +13,7 @@ pub struct PrincipialVariation {
     pub stack: Vec<GameMove>,
     pub hash_stack: Vec<i64>,
     pub score: f64,
+    pub depth:usize,
 }
 
 impl PrincipialVariation {
@@ -21,6 +22,7 @@ impl PrincipialVariation {
             stack: Vec::with_capacity(depth_left),
             hash_stack: Vec::with_capacity(depth_left),
             score: -1000000.0,
+            depth:depth_left
         }
     }
 }

@@ -1,5 +1,5 @@
-cargo rustc --release -- -C target-cpu=native
+cargo rustc --release --bin rust_swcl -- -C target-cpu=native 
 cd target
 cd release
-RustSwCl.exe
+rust_swcl.exe log
 pause

@@ -6,6 +6,7 @@ mod constants;
 mod zobrist;
 mod board_rating;
 mod search;
+mod localtesting;
 
 use std::time::Instant;
 use self::game_state::{GameState, GameStatus, GameColor, GameMove};
@@ -17,18 +18,7 @@ use rand::Rng;
 use crate::search::{Search, TimeControl};
 
 fn main() {
-    //let mut state = string_to_game_state_converter::string_to_game_state(string_to_game_state_converter::STANDARD_GAME_STATE,0,0,GameColor::Red);
-    //println!("{}",perft_div(&mut state,5));
-    let mut state = GameState::from_fen("8 180179238186385408 10241 18023332108566528 0 72075186223972352 r 50 25");
-    //println!("{}", state.to_fen());
-    //println!("{}", board_rating::rating(&state, true));
-    let mut s = Search::new(TimeControl::Infinite);
-    let now = Instant::now();
-    println!("Score {}",s.run(7,&mut state).score);
-    println!("{}",s.nodes_analyzed);
-    //play_rand_games();
-    let new_now = Instant::now();
-    println!("Time: {}ms", new_now.duration_since(now).as_secs() * 1000 + new_now.duration_since(now).subsec_millis() as u64);
+    localtesting::protocol::go();
 }
 
 fn play_rand_games() {

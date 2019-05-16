@@ -12,3 +12,6 @@ opt-level=3
 debug=false
 lto=true
 codegen-units=3
+[[bin]]
+name="rust_swcl"
+path="src/main.rs"
