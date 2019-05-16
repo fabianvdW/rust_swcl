@@ -1,5 +1,19 @@
 use super::game_state;
 
+
+#[allow(dead_code)]
+pub fn rand() -> String {
+    let mut res: u128 = 0u128;
+    for y in 0..10 {
+        for x in 0..10 {
+            if y == 0 || y == 9 || x == 0 || x == 9 {
+                res |= 1u128 << (10 * y + x);
+            }
+        }
+    }
+    format!("0x{:x}u128", res)
+}
+
 #[allow(dead_code)]
 pub fn starting_position_red() -> String {
     let mut res: u128 = 0u128;

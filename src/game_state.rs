@@ -1,6 +1,7 @@
 use std::fmt::{self, Formatter, Display};
 use super::game_logic;
 use super::zobrist;
+
 extern crate rand;
 
 use rand::Rng;
@@ -69,7 +70,7 @@ pub struct GameState {
 
     pub game_status: Option<GameStatus>,
     pub move_color: GameColor,
-    pub hash :i64,
+    pub hash: i64,
 }
 
 impl GameState {
@@ -156,57 +157,79 @@ impl GameState {
         }
     }
 
-    pub fn calculate_hash(rote_fische:u128,blaue_fische:u128,kraken:u128,move_color:&GameColor)->i64{
-        let mut hash=0;
-        for y in 0..10{
-            for x in 0..10{
-                let shift = 10*y+x;
-                if ((rote_fische>>shift) &1)!=0u128{
-                    hash^=zobrist::ZOBRIST_KEYS[y][x][0];
-                }else if ((blaue_fische>>shift) &1)!=0u128{
-                    hash^=zobrist::ZOBRIST_KEYS[y][x][1];
-                }else if ((kraken>>shift) &1)!=0u128{
-                    hash^=zobrist::ZOBRIST_KEYS[y][x][2];
+    pub fn calculate_hash(rote_fische: u128, blaue_fische: u128, kraken: u128, move_color: &GameColor) -> i64 {
+        let mut hash = 0;
+        for y in 0..10 {
+            for x in 0..10 {
+                let shift = 10 * y + x;
+                if ((rote_fische >> shift) & 1) != 0u128 {
+                    hash ^= zobrist::ZOBRIST_KEYS[y][x][0];
+                } else if ((blaue_fische >> shift) & 1) != 0u128 {
+                    hash ^= zobrist::ZOBRIST_KEYS[y][x][1];
+                } else if ((kraken >> shift) & 1) != 0u128 {
+                    hash ^= zobrist::ZOBRIST_KEYS[y][x][2];
                 }
             }
         }
-        if let GameColor::Blue=move_color{
-            hash^=zobrist::SIDE_TO_MOVE_IS_BLUE;
+        if let GameColor::Blue = move_color {
+            hash ^= zobrist::SIDE_TO_MOVE_IS_BLUE;
         }
         hash
     }
 
-    pub fn from_fen(fen: &str)->Self {
-        let arr: Vec<&str> = fen.split(" ").collect();
-        let rote_fische = (arr[0].parse::<u128>().unwrap() << 64) | (arr[1].parse::<u128>().unwrap());
-        let blaue_fische = (arr[2].parse::<u128>().unwrap() << 64) | (arr[3].parse::<u128>().unwrap());
-        let kraken = (arr[4].parse::<u128>().unwrap() << 64) | (arr[5].parse::<u128>().unwrap());
-        let move_color:GameColor;
-        if arr[6].eq_ignore_ascii_case("r"){
-            move_color=GameColor::Red;
-        }else{
-            move_color=GameColor::Blue;
+    pub fn my_u64(myi64: i64) -> u64 {
+        let mut res = 0u64;
+        for i in 0..64 {
+            res |= (((myi64 >> i) & 1i64) as u64) << i;
         }
-        let plies_played=arr[7].parse::<u8>().unwrap();
-        let rounds_played=arr[8].parse::<u8>().unwrap();
-        let hash= GameState::calculate_hash(rote_fische,blaue_fische,kraken,&move_color);
-        GameState::new(rote_fische,blaue_fische,kraken,plies_played,rounds_played,move_color,hash)
+        res
     }
 
-    pub fn to_fen(&self)->String{
-        let mut res_str=String::new();
-        let rlinks=(self.rote_fische>>64) as u64;
-        let rrechts= self.rote_fische as u64;
-        let blinks= (self.blaue_fische>>64) as u64;
-        let brechts= self.blaue_fische as u64;
-        let klinks= (self.kraken>>64) as u64;
-        let krechts= self.kraken as u64;
-        let mc= if let GameColor::Red=self.move_color{"r"}else{"b"};
-        res_str.push_str(&format!("{} {} {} {} {} {} {} {} {}",rlinks,rrechts,blinks,brechts,klinks,krechts,mc,self.plies_played,self.rounds_played));
+    pub fn my_i64(myu64: u64) -> i64 {
+        let mut res = 0i64;
+        for i in 0..64 {
+            res |= (((myu64 >> i) & 1u64) as i64) << i;
+        }
+        res
+    }
+
+    pub fn from_fen(fen: &str) -> Self {
+        let arr: Vec<&str> = fen.split(" ").collect();
+        let rlinks = arr[0].parse::<i64>().unwrap();
+        let rrechts = arr[1].parse::<i64>().unwrap();
+        let blinks = arr[2].parse::<i64>().unwrap();
+        let brechts = arr[3].parse::<i64>().unwrap();
+        let klinks = arr[4].parse::<i64>().unwrap();
+        let krechts = arr[5].parse::<i64>().unwrap();
+        let rote_fische = ((GameState::my_u64(rlinks) as u128) << 64) | (GameState::my_u64(rrechts) as u128);
+        let blaue_fische = ((GameState::my_u64(blinks) as u128) << 64) | (GameState::my_u64(brechts) as u128);
+        let kraken = ((GameState::my_u64(klinks) as u128) << 64) | (GameState::my_u64(krechts) as u128);
+        let move_color: GameColor;
+        if arr[6].eq_ignore_ascii_case("r") {
+            move_color = GameColor::Red;
+        } else {
+            move_color = GameColor::Blue;
+        }
+        let plies_played = arr[7].parse::<u8>().unwrap();
+        let rounds_played = arr[8].parse::<u8>().unwrap();
+        let hash = GameState::calculate_hash(rote_fische, blaue_fische, kraken, &move_color);
+        GameState::new(rote_fische, blaue_fische, kraken, plies_played, rounds_played, move_color, hash)
+    }
+
+    pub fn to_fen(&self) -> String {
+        let mut res_str = String::new();
+        let rlinks = GameState::my_i64((self.rote_fische >> 64) as u64);
+        let rrechts = GameState::my_i64(self.rote_fische as u64);
+        let blinks = GameState::my_i64((self.blaue_fische >> 64) as u64);
+        let brechts = GameState::my_i64(self.blaue_fische as u64);
+        let klinks = GameState::my_i64((self.kraken >> 64) as u64);
+        let krechts = GameState::my_i64(self.kraken as u64);
+        let mc = if let GameColor::Red = self.move_color { "r" } else { "b" };
+        res_str.push_str(&format!("{} {} {} {} {} {} {} {} {}", rlinks, rrechts, blinks, brechts, klinks, krechts, mc, self.plies_played, self.rounds_played));
         res_str
     }
 
-    pub fn new(rote_fische: u128, blaue_fische: u128, kraken: u128, plies_played: u8, rounds_played: u8, move_color: GameColor,hash:i64) -> GameState {
+    pub fn new(rote_fische: u128, blaue_fische: u128, kraken: u128, plies_played: u8, rounds_played: u8, move_color: GameColor, hash: i64) -> GameState {
         GameState {
             rote_fische,
             blaue_fische,
@@ -215,7 +238,7 @@ impl GameState {
             rounds_played,
             game_status: None,
             move_color,
-            hash
+            hash,
         }
     }
 
@@ -223,7 +246,7 @@ impl GameState {
         GameState::standard_with_kraken(GameState::generate_random_kraken())
     }
     pub fn standard_with_kraken(kraken: u128) -> GameState {
-        let hash= GameState::calculate_hash(0x20180601806018060180400u128, 0x7f800000000000000000001feu128,kraken,&GameColor::Red);
+        let hash = GameState::calculate_hash(0x20180601806018060180400u128, 0x7f800000000000000000001feu128, kraken, &GameColor::Red);
         GameState {
             rote_fische: 0x20180601806018060180400u128,
             blaue_fische: 0x7f800000000000000000001feu128,
@@ -232,7 +255,7 @@ impl GameState {
             rounds_played: 0,
             move_color: GameColor::Red,
             game_status: Some(GameStatus::Ingame),
-            hash
+            hash,
         }
     }
 
@@ -284,11 +307,11 @@ impl Display for GameState {
                 res_str.push_str("\t");
                 let shift: u128 = 99 - (y * 10 + x);
                 if ((&self.rote_fische >> shift) & 1u128) != 0u128 {
-                    res_str.push_str(&format!("{}","🐟".red()));
+                    res_str.push_str(&format!("{}", "🐟".red()));
                 } else if ((&self.blaue_fische >> shift) & 1u128) != 0u128 {
-                    res_str.push_str(&format!("{}","🐟".blue()));
+                    res_str.push_str(&format!("{}", "🐟".blue()));
                 } else if ((&self.kraken >> shift) & 1u128) != 0u128 {
-                    res_str.push_str(&format!("{}","🐙".green()));
+                    res_str.push_str(&format!("{}", "🐙".green()));
                 }
                 res_str.push_str("\t|");
             }
@@ -296,7 +319,7 @@ impl Display for GameState {
         }
         res_str.push_str(&format!("Rounds played: {}\n", self.rounds_played));
         res_str.push_str(&format!("Plies played: {}\n", self.plies_played));
-        res_str.push_str(&format!("Hash: {}",self.hash));
+        res_str.push_str(&format!("Hash: {}", self.hash));
         write!(formatter, "{}", res_str)
     }
 }

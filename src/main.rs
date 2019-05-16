@@ -4,6 +4,7 @@ mod string_to_game_state_converter;
 mod game_logic;
 mod constants;
 mod zobrist;
+mod board_rating;
 
 use std::time::Instant;
 use self::game_state::{GameState, GameStatus, GameColor, GameMove};
@@ -17,7 +18,10 @@ fn main() {
     let now = Instant::now();
     //let mut state = string_to_game_state_converter::string_to_game_state(string_to_game_state_converter::STANDARD_GAME_STATE,0,0,GameColor::Red);
     //println!("{}",perft_div(&mut state,5));
-    play_rand_games();
+    let state= GameState::from_fen("0 -9223372036854771686 21474836480 1161213153116160 2048 4503599627370496 r 52 26");
+    println!("{}",state.to_fen());
+    println!("{}",board_rating::rating(&state,true));
+    //play_rand_games();
     let new_now = Instant::now();
     println!("Time: {}ms", new_now.duration_since(now).as_secs() * 1000 + new_now.duration_since(now).subsec_millis() as u64);
 }
