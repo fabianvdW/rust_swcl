@@ -1,6 +1,8 @@
 use super::game_state::{GameState, GameColor, DIRECTIONS, GameMove};
 use super::constants;
+use super::zobrist;
 
+#[inline(always)]
 pub fn get_schwarm(gs: &GameState, gc: &GameColor) -> u8 {
     let mut meine_fische: u128 = match gc {
         GameColor::Red => gs.rote_fische,
@@ -25,6 +27,7 @@ pub fn get_schwarm(gs: &GameState, gc: &GameColor) -> u8 {
     result
 }
 
+#[inline(always)]
 pub fn get_schwarm_board(mut meine_fische: u128) -> u128 {
     if meine_fische == 0u128 {
         return 0u128;
@@ -45,6 +48,7 @@ pub fn get_schwarm_board(mut meine_fische: u128) -> u128 {
     result
 }
 
+#[inline(always)]
 pub fn get_possible_moves(gs: &GameState, gc: &GameColor) -> Vec<GameMove> {
     let mut res: Vec<GameMove> = Vec::with_capacity(90);
     let (meine_fische, gegner_fische) = match gc {
@@ -73,19 +77,35 @@ pub fn get_possible_moves(gs: &GameState, gc: &GameColor) -> Vec<GameMove> {
     res
 }
 
+#[inline(always)]
 pub fn make_move(gs: &GameState, gm: &GameMove) -> GameState {
     match gs.move_color {
         GameColor::Red => {
             let mut new_red: u128 = gs.rote_fische & !(1u128 << gm.from);
             new_red |= 1u128 << gm.to;
             let new_blau: u128 = gs.blaue_fische & !(1u128 << gm.to);
-            GameState::new(new_red, new_blau, gs.kraken, gs.plies_played + 1, gs.rounds_played, GameColor::Blue)
+            //Update hash
+            let mut hash= gs.hash;
+            hash^=zobrist::ZOBRIST_KEYS[(gm.from/10) as usize][(gm.from%10) as usize][0];
+            hash^=zobrist::ZOBRIST_KEYS[(gm.to/10) as usize][(gm.to%10) as usize][0];
+            if new_blau!=gs.blaue_fische{
+                hash^=zobrist::ZOBRIST_KEYS[(gm.to/10) as usize][(gm.to%10) as usize][1];
+            }
+            hash^=zobrist::SIDE_TO_MOVE_IS_BLUE;
+            GameState::new(new_red, new_blau, gs.kraken, gs.plies_played + 1, gs.rounds_played, GameColor::Blue,hash)
         }
         GameColor::Blue => {
             let mut new_blau: u128 = gs.blaue_fische & !(1u128 << gm.from);
             new_blau |= 1u128 << gm.to;
             let new_red: u128 = gs.rote_fische & !(1u128 << gm.to);
-            GameState::new(new_red, new_blau, gs.kraken, gs.plies_played + 1, gs.rounds_played + 1, GameColor::Red)
+            let mut hash= gs.hash;
+            hash^=zobrist::ZOBRIST_KEYS[(gm.from/10) as usize][(gm.from%10) as usize][1];
+            hash^=zobrist::ZOBRIST_KEYS[(gm.to/10) as usize][(gm.to%10) as usize][1];
+            if new_red!=gs.rote_fische{
+                hash^=zobrist::ZOBRIST_KEYS[(gm.to/10) as usize][(gm.to%10) as usize][0];
+            }
+            hash^=zobrist::SIDE_TO_MOVE_IS_BLUE;
+            GameState::new(new_red, new_blau, gs.kraken, gs.plies_played + 1, gs.rounds_played + 1, GameColor::Red,hash)
         }
     }
 }

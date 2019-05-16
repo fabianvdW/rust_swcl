@@ -1,6 +1,6 @@
 use std::fmt::{self, Formatter, Display};
 use super::game_logic;
-
+use super::zobrist;
 extern crate rand;
 
 use rand::Rng;
@@ -69,6 +69,7 @@ pub struct GameState {
 
     pub game_status: Option<GameStatus>,
     pub move_color: GameColor,
+    pub hash :i64,
 }
 
 impl GameState {
@@ -112,7 +113,7 @@ impl GameState {
             while blaue_fische != 0u128 {
                 let schwarm = game_logic::get_schwarm_board(blaue_fische);
                 let schwarm_count = schwarm.count_ones() as usize;
-                blau_biggest_schwarm = blau_biggest_schwarm.max(blau_biggest_schwarm);
+                blau_biggest_schwarm = blau_biggest_schwarm.max(schwarm_count);
                 blaue_fische &= !schwarm;
             }
             if rot_biggest_schwarm > blau_biggest_schwarm {
@@ -155,6 +156,26 @@ impl GameState {
         }
     }
 
+    pub fn calculate_hash(rote_fische:u128,blaue_fische:u128,kraken:u128,move_color:&GameColor)->i64{
+        let mut hash=0;
+        for y in 0..10{
+            for x in 0..10{
+                let shift = 10*y+x;
+                if ((rote_fische>>shift) &1)!=0u128{
+                    hash^=zobrist::ZOBRIST_KEYS[y][x][0];
+                }else if ((blaue_fische>>shift) &1)!=0u128{
+                    hash^=zobrist::ZOBRIST_KEYS[y][x][1];
+                }else if ((kraken>>shift) &1)!=0u128{
+                    hash^=zobrist::ZOBRIST_KEYS[y][x][2];
+                }
+            }
+        }
+        if let GameColor::Blue=move_color{
+            hash^=zobrist::SIDE_TO_MOVE_IS_BLUE;
+        }
+        hash
+    }
+
     pub fn from_fen(fen: &str)->Self {
         let arr: Vec<&str> = fen.split(" ").collect();
         let rote_fische = (arr[0].parse::<u128>().unwrap() << 64) | (arr[1].parse::<u128>().unwrap());
@@ -168,11 +189,24 @@ impl GameState {
         }
         let plies_played=arr[7].parse::<u8>().unwrap();
         let rounds_played=arr[8].parse::<u8>().unwrap();
-        //TODO Hash
-        GameState::new(rote_fische,blaue_fische,kraken,plies_played,rounds_played,move_color)
+        let hash= GameState::calculate_hash(rote_fische,blaue_fische,kraken,&move_color);
+        GameState::new(rote_fische,blaue_fische,kraken,plies_played,rounds_played,move_color,hash)
     }
 
-    pub fn new(rote_fische: u128, blaue_fische: u128, kraken: u128, plies_played: u8, rounds_played: u8, move_color: GameColor) -> GameState {
+    pub fn to_fen(&self)->String{
+        let mut res_str=String::new();
+        let rlinks=(self.rote_fische>>64) as u64;
+        let rrechts= self.rote_fische as u64;
+        let blinks= (self.blaue_fische>>64) as u64;
+        let brechts= self.blaue_fische as u64;
+        let klinks= (self.kraken>>64) as u64;
+        let krechts= self.kraken as u64;
+        let mc= if let GameColor::Red=self.move_color{"r"}else{"b"};
+        res_str.push_str(&format!("{} {} {} {} {} {} {} {} {}",rlinks,rrechts,blinks,brechts,klinks,krechts,mc,self.plies_played,self.rounds_played));
+        res_str
+    }
+
+    pub fn new(rote_fische: u128, blaue_fische: u128, kraken: u128, plies_played: u8, rounds_played: u8, move_color: GameColor,hash:i64) -> GameState {
         GameState {
             rote_fische,
             blaue_fische,
@@ -181,12 +215,15 @@ impl GameState {
             rounds_played,
             game_status: None,
             move_color,
+            hash
         }
     }
+
     pub fn standard() -> GameState {
         GameState::standard_with_kraken(GameState::generate_random_kraken())
     }
     pub fn standard_with_kraken(kraken: u128) -> GameState {
+        let hash= GameState::calculate_hash(0x20180601806018060180400u128, 0x7f800000000000000000001feu128,kraken,&GameColor::Red);
         GameState {
             rote_fische: 0x20180601806018060180400u128,
             blaue_fische: 0x7f800000000000000000001feu128,
@@ -195,8 +232,10 @@ impl GameState {
             rounds_played: 0,
             move_color: GameColor::Red,
             game_status: Some(GameStatus::Ingame),
+            hash
         }
     }
+
     pub fn generate_random_kraken() -> u128 {
         let mut pos1: i8 = GameState::get_random_kraken_position();
         while pos1 % 10 == 9 || pos1 % 10 == 8 || pos1 % 10 == 1 || pos1 % 10 == 0 {
@@ -210,6 +249,7 @@ impl GameState {
         }
         return 1u128 << pos1 | 1u128 << pos2;
     }
+
     pub fn get_random_kraken_position() -> i8 {
         rand::thread_rng().gen_range(22, 78)
     }
@@ -255,7 +295,8 @@ impl Display for GameState {
             res_str.push_str("\n");
         }
         res_str.push_str(&format!("Rounds played: {}\n", self.rounds_played));
-        res_str.push_str(&format!("Plies played: {}", self.plies_played));
+        res_str.push_str(&format!("Plies played: {}\n", self.plies_played));
+        res_str.push_str(&format!("Hash: {}",self.hash));
         write!(formatter, "{}", res_str)
     }
 }

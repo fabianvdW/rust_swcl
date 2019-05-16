@@ -44,5 +44,6 @@ pub fn string_to_game_state(arr: [[&str; 10]; 10], plies_played: u8, rounds_play
             }
         }
     }
-    game_state::GameState::new(rote_fische, blaue_fische, kraken, plies_played, rounds_played, move_color)
+    let hash= game_state::GameState::calculate_hash(rote_fische,blaue_fische,kraken,&move_color);
+    game_state::GameState::new(rote_fische, blaue_fische, kraken, plies_played, rounds_played, move_color,hash)
 }
