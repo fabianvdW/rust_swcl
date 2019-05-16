@@ -1,0 +1,13 @@
+[package]
+name = "RustSwCl"
+version = "0.1.0"
+authors = ["fabianvdW <fabianvonderwarth@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand="0.6.1"
+[profile.release]
+opt-level=3
+debug=false
+lto=true
+codegen-units=1

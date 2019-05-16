@@ -1,0 +1,4 @@
+[build]
+rustflags = "-C target-cpu=native"
+codegen-units=1
+lto=true
