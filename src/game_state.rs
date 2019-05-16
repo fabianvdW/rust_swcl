@@ -4,6 +4,7 @@ use super::game_logic;
 extern crate rand;
 
 use rand::Rng;
+use colored::*;
 
 pub const DIRECTIONS: [i8; 8] = [10, 11, 1, -9, -10, -11, -1, 9];
 
@@ -97,7 +98,30 @@ impl GameState {
             }
         }
         if self.rounds_played == 30 {
-            self.game_status = Some(GameStatus::Draw);
+            //Ermittle größten Schwarm
+            let mut rot_biggest_schwarm = 0;
+            let mut blau_biggest_schwarm = 0;
+            let mut rote_fische = self.rote_fische;
+            while rote_fische != 0u128 {
+                let schwarm = game_logic::get_schwarm_board(rote_fische);
+                let schwarm_count = schwarm.count_ones() as usize;
+                rot_biggest_schwarm = rot_biggest_schwarm.max(schwarm_count);
+                rote_fische &= !schwarm;
+            }
+            let mut blaue_fische: u128 = self.blaue_fische;
+            while blaue_fische != 0u128 {
+                let schwarm = game_logic::get_schwarm_board(blaue_fische);
+                let schwarm_count = schwarm.count_ones() as usize;
+                blau_biggest_schwarm = blau_biggest_schwarm.max(blau_biggest_schwarm);
+                blaue_fische &= !schwarm;
+            }
+            if rot_biggest_schwarm > blau_biggest_schwarm {
+                self.game_status = Some(GameStatus::RedWin);
+            } else if blau_biggest_schwarm > rot_biggest_schwarm {
+                self.game_status = Some(GameStatus::BlueWin);
+            } else {
+                self.game_status = Some(GameStatus::Draw);
+            }
             return;
         }
         if possible_moves.len() == 0 {
@@ -114,6 +138,40 @@ impl GameState {
         }
         self.game_status = Some(GameStatus::Ingame);
     }
+
+    pub fn game_over(&self) -> bool {
+        match &self.game_status {
+            Some(x) => {
+                match x {
+                    GameStatus::RedWin | GameStatus::BlueWin | GameStatus::Draw => {
+                        true
+                    }
+                    _ => false,
+                }
+            }
+            None => {
+                panic!("This should not happen!");
+            }
+        }
+    }
+
+    pub fn from_fen(fen: &str)->Self {
+        let arr: Vec<&str> = fen.split(" ").collect();
+        let rote_fische = (arr[0].parse::<u128>().unwrap() << 64) | (arr[1].parse::<u128>().unwrap());
+        let blaue_fische = (arr[2].parse::<u128>().unwrap() << 64) | (arr[3].parse::<u128>().unwrap());
+        let kraken = (arr[4].parse::<u128>().unwrap() << 64) | (arr[5].parse::<u128>().unwrap());
+        let move_color:GameColor;
+        if arr[6].eq_ignore_ascii_case("r"){
+            move_color=GameColor::Red;
+        }else{
+            move_color=GameColor::Blue;
+        }
+        let plies_played=arr[7].parse::<u8>().unwrap();
+        let rounds_played=arr[8].parse::<u8>().unwrap();
+        //TODO Hash
+        GameState::new(rote_fische,blaue_fische,kraken,plies_played,rounds_played,move_color)
+    }
+
     pub fn new(rote_fische: u128, blaue_fische: u128, kraken: u128, plies_played: u8, rounds_played: u8, move_color: GameColor) -> GameState {
         GameState {
             rote_fische,
@@ -186,11 +244,11 @@ impl Display for GameState {
                 res_str.push_str("\t");
                 let shift: u128 = 99 - (y * 10 + x);
                 if ((&self.rote_fische >> shift) & 1u128) != 0u128 {
-                    res_str.push_str("🐟");
+                    res_str.push_str(&format!("{}","🐟".red()));
                 } else if ((&self.blaue_fische >> shift) & 1u128) != 0u128 {
-                    res_str.push_str("🐠");
+                    res_str.push_str(&format!("{}","🐟".blue()));
                 } else if ((&self.kraken >> shift) & 1u128) != 0u128 {
-                    res_str.push_str("🐙");
+                    res_str.push_str(&format!("{}","🐙".green()));
                 }
                 res_str.push_str("\t|");
             }

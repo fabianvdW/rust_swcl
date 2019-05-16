@@ -8,6 +8,7 @@ use std::time::Instant;
 use self::game_state::{GameState, GameStatus, GameColor, GameMove};
 
 extern crate rand;
+extern crate colored;
 
 use rand::Rng;
 
@@ -15,7 +16,9 @@ fn main() {
     let now = Instant::now();
     //let mut state = string_to_game_state_converter::string_to_game_state(string_to_game_state_converter::STANDARD_GAME_STATE,0,0,GameColor::Red);
     //println!("{}",perft_div(&mut state,5));
-    play_rand_games();
+    let state= GameState::from_fen("10551296 96800593707008 16106129408 36028797018963968 4 9007199254740992 r 48 24");
+    println!("{}",state);
+    //play_rand_games();
     let new_now = Instant::now();
     println!("Time: {}ms", new_now.duration_since(now).as_secs() * 1000 + new_now.duration_since(now).subsec_millis() as u64);
 }
@@ -27,26 +30,10 @@ fn play_rand_games() {
         curr_state = GameState::standard();
         moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color);
         curr_state.analyze(&moves);
-        while !matches(&curr_state) {
+        while !curr_state.game_over() {
             curr_state = game_logic::make_move(&curr_state, &moves[rand::thread_rng().gen_range(0, moves.len())]);
             let moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color);
             curr_state.analyze(&moves);
-        }
-    }
-}
-
-fn matches(gs: &GameState) -> bool {
-    match &gs.game_status {
-        Some(x) => {
-            match x {
-                GameStatus::RedWin | GameStatus::BlueWin | GameStatus::Draw => {
-                    true
-                }
-                _ => false,
-            }
-        }
-        None => {
-            panic!("This should not happen!");
         }
     }
 }
@@ -57,7 +44,7 @@ fn perft_div(g: &mut GameState, depth: u8) -> u64 {
     }
     let moves = game_logic::get_possible_moves(&g, &g.move_color);
     g.analyze(&moves);
-    if matches(g) {
+    if g.game_over() {
         return 1;
     }
     let mut count: u64 = 0u64;
@@ -75,7 +62,7 @@ fn perft(g: &mut GameState, depth: u8) -> u64 {
     }
     let moves = game_logic::get_possible_moves(&g, &g.move_color);
     g.analyze(&moves);
-    if matches(g) {
+    if g.game_over() {
         return 1;
     }
     let mut count: u64 = 0u64;

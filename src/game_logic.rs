@@ -2,26 +2,46 @@ use super::game_state::{GameState, GameColor, DIRECTIONS, GameMove};
 use super::constants;
 
 pub fn get_schwarm(gs: &GameState, gc: &GameColor) -> u8 {
-        let mut meine_fische: u128 = match gc {
-            GameColor::Red => gs.rote_fische,
-            GameColor::Blue => gs.blaue_fische,
-        };
-        if meine_fische == 0u128 {
-            return 0u8;
+    let mut meine_fische: u128 = match gc {
+        GameColor::Red => gs.rote_fische,
+        GameColor::Blue => gs.blaue_fische,
+    };
+    if meine_fische == 0u128 {
+        return 0u8;
+    }
+    let mut result: u8 = 0u8;
+    let mut neighboring_fields: u128 = 0u128;
+    let mut neighboring_fields_and_meine_fische: u128 = meine_fische;
+    loop {
+        result += 1;
+        let fisch_bit: usize = neighboring_fields_and_meine_fische.trailing_zeros() as usize;
+        meine_fische &= !(1u128 << fisch_bit);
+        neighboring_fields |= constants::NACHBARN[fisch_bit];
+        neighboring_fields_and_meine_fische = neighboring_fields & meine_fische;
+        if neighboring_fields_and_meine_fische == 0u128 {
+            break;
         }
-        let mut result: u8 = 0u8;
-        let mut neighboring_fields: u128 = 0u128;
-        let mut neighboring_fields_and_meine_fische: u128 = meine_fische;
-        loop {
-            result += 1;
-            let fisch_bit: usize = neighboring_fields_and_meine_fische.trailing_zeros() as usize;
-            meine_fische &= !(1u128 << fisch_bit);
-            neighboring_fields |= constants::NACHBARN[fisch_bit];
-            neighboring_fields_and_meine_fische = neighboring_fields & meine_fische;
-            if neighboring_fields_and_meine_fische == 0u128 {
-                break;
-            }
+    }
+    result
+}
+
+pub fn get_schwarm_board(mut meine_fische: u128) -> u128 {
+    if meine_fische == 0u128 {
+        return 0u128;
+    }
+    let mut result: u128 = 0u128;
+    let mut neighboring_fields: u128 = 0u128;
+    let mut neighboring_fields_and_meine_fische: u128 = meine_fische;
+    loop {
+        let fisch_bit: usize = neighboring_fields_and_meine_fische.trailing_zeros() as usize;
+        meine_fische ^= 1u128 << fisch_bit;
+        result |= 1u128 << fisch_bit;
+        neighboring_fields |= constants::NACHBARN[fisch_bit];
+        neighboring_fields_and_meine_fische = neighboring_fields & meine_fische;
+        if neighboring_fields_and_meine_fische == 0u128 {
+            break;
         }
+    }
     result
 }
 
