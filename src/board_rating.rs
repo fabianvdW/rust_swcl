@@ -72,7 +72,7 @@ pub fn distance(x1: f64, x2: f64, y1: f64, y2: f64) -> f64 {
 
 pub struct Schwarm {
     gebiet: u128,
-    size: usize,
+    pub size: usize,
     average_x: f64,
     average_y: f64,
     distance_to_mid: f64,

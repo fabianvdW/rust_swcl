@@ -43,6 +43,7 @@ impl Display for GameStatus {
     }
 }
 
+#[derive(Copy, Clone, PartialEq)]
 pub struct GameMove {
     pub from: u8,
     pub to: u8,
