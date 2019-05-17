@@ -1,12 +1,14 @@
-mod game_state;
-mod generate_u128_nums;
-mod string_to_game_state_converter;
-mod game_logic;
-mod constants;
-mod zobrist;
-mod board_rating;
-mod search;
-mod localtesting;
+pub mod game_state;
+pub mod generate_u128_nums;
+pub mod string_to_game_state_converter;
+pub mod game_logic;
+pub mod constants;
+pub mod zobrist;
+pub mod board_rating;
+pub mod search;
+pub mod localtesting;
+pub mod online;
+pub mod logging;
 
 use std::time::Instant;
 use self::game_state::{GameState, GameStatus, GameColor, GameMove};
@@ -16,9 +18,9 @@ extern crate colored;
 
 use rand::Rng;
 use crate::search::{Search, TimeControl};
-
-fn main() {
-    localtesting::protocol::go();
+fn main(){
+    //localtesting::protocol::go();
+    online::protocol::go();
 }
 
 fn play_rand_games() {

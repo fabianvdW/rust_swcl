@@ -146,7 +146,6 @@ pub fn eval(plies_played: usize, meine_fische: u128, meine_schwaerme: &Vec<Schwa
     let unskewed_phase = plies_played as f64 / 60.0;
     let phase = 1.0 - (1.0 - unskewed_phase).powf(2.0);
 
-    let mut res = 0.0;
 
     //FISCHE FEATURE
     let fisch_anzahl = meine_fische.count_ones() as usize;
@@ -210,6 +209,6 @@ pub fn eval(plies_played: usize, meine_fische: u128, meine_schwaerme: &Vec<Schwa
         println!("Rand Fische: {}", rand_fisch_eval);
         println!("Abstand zu Gegner Schwarm: {}", gegner_distance_eval);
     }
-    res = fisch_eval + distance_to_mid_eval + distance_to_biggest_schwarm_eval + biggest_schwarm_eval + absolute_schwarm_eval + rand_fisch_eval + gegner_distance_eval;
+    let res = fisch_eval + distance_to_mid_eval + distance_to_biggest_schwarm_eval + biggest_schwarm_eval + absolute_schwarm_eval + rand_fisch_eval + gegner_distance_eval;
     res
 }
