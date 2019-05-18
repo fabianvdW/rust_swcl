@@ -19,8 +19,8 @@ extern crate colored;
 use rand::Rng;
 use crate::search::{Search, TimeControl};
 fn main(){
-    //localtesting::protocol::go();
-    online::protocol::go();
+    localtesting::protocol::go();
+    //online::protocol::go();
 }
 
 fn play_rand_games() {

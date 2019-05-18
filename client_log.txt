@@ -1,19 +1,19 @@
 Finished initializing!
-Arguments: ["rust_swcl.exe", "--host", "127.0.0.1", "--port", "13050", "--reservation", "de759b5e-d1a2-4ec8-8ce4-b1e701cd1641"]
+Arguments: ["rust_swcl.exe", "--host", "127.0.0.1", "--port", "13050", "--reservation", "6ab47ca1-9b34-4628-8b08-b63358ce34d4"]
 Wrote to stream:
 <protocol>
 Wrote to stream:
-<joinPrepared reservationCode="de759b5e-d1a2-4ec8-8ce4-b1e701cd1641"/>
+<joinPrepared reservationCode="6ab47ca1-9b34-4628-8b08-b63358ce34d4"/>
 Succesfully read GameState!
 FEN:
-33652832 1731072757650162688 34225520640 510 0 68736253952 r 0 0
+33652832 1731072757650162688 34225520640 510 0 36028797153181696 r 0 0
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
 	<data class="move" x="9" y="2" direction="DOWN_LEFT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 726016
+Nodes analyzed: 703488
 Searched to depth: 6
 Score: -0.1667417027734137
 PV:
@@ -25,17 +25,17 @@ PV:
 (1,9) --> (4,6)
 Succesfully read GameState!
 FEN:
-33652832 1731072757649114116 34225520640 506 0 68736253952 b 1 0
+33652832 1731072757649114116 34225520640 506 0 36028797153181696 b 1 0
 Succesfully read GameState!
 FEN:
-33652832 1731072757112243204 34225520640 536871290 0 68736253952 r 2 1
+33652832 1731072757112243204 34225520640 536871290 0 36028797153181696 r 2 1
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
 	<data class="move" x="0" y="8" direction="RIGHT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 722944
+Nodes analyzed: 702464
 Searched to depth: 6
 Score: -0.16586078617214461
 PV:
@@ -47,488 +47,630 @@ PV:
 (7,0) --> (9,2)
 Succesfully read GameState!
 FEN:
-8487008 1731072757112243204 34225520640 536871290 0 68736253952 b 3 1
+8487008 1731072757112243204 34225520640 536871290 0 36028797153181696 b 3 1
 Succesfully read GameState!
 FEN:
-8487008 1731072757112243204 34225520640 805306490 0 68736253952 r 4 2
+8487008 1731072757112243204 34225520640 805306490 0 36028797153181696 r 4 2
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="0" y="6" direction="UP_RIGHT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 746496
-Searched to depth: 6
-Score: -0.19811962819543982
-PV:
-(0,3) --> (3,0)
-(8,0) --> (5,3)
-(0,2) --> (2,0)
-(6,0) --> (4,2)
-(9,8) --> (6,5)
-(5,9) --> (5,6)
-Succesfully read GameState!
-FEN:
-4303454272 1731072757112243204 29930553344 805306490 0 68736253952 b 5 2
-Succesfully read GameState!
-FEN:
-4303454272 1731072207356429316 29930553344 550561120314 0 68736253952 r 6 3
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="9" y="8" direction="LEFT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 774144
-Searched to depth: 6
-Score: 0.0646460141279448
-PV:
-(9,1) --> (7,1)
-(7,0) --> (9,2)
-(0,2) --> (2,0)
-(0,6) --> (2,6)
-(9,8) --> (9,2)
-(0,7) --> (2,7)
-Succesfully read GameState!
-FEN:
-4303650880 1731072207356429316 29930553344 550561120314 0 68736253952 b 7 3
-Succesfully read GameState!
-FEN:
-4303650880 1731072207356429316 29930553344 550695338010 0 68736253952 r 8 4
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="0" y="4" direction="DOWN_RIGHT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 735232
-Searched to depth: 6
-Score: 1.1662234469477015
-PV:
-(0,5) --> (2,7)
-(1,7) --> (5,3)
-(0,4) --> (2,6)
-(6,0) --> (4,2)
-(0,8) --> (5,3)
-(2,0) --> (5,3)
-Succesfully read GameState!
-FEN:
-4303650880 1730509257537225732 29930553344 550561120282 0 68736253952 b 9 4
-Succesfully read GameState!
-FEN:
-4303650880 1730509257537225732 29930553344 550628229130 0 68736253952 r 10 5
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="9" y="5" direction="LEFT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="0" y="7" direction="UP_RIGHT"/>
 </room>
 Succesfully sent move!
 Nodes analyzed: 787456
 Searched to depth: 6
-Score: 1.8473889080705446
+Score: -0.14833086474330326
 PV:
-(9,4) --> (7,4)
-(8,9) --> (8,7)
-(2,1) --> (6,5)
-(1,7) --> (5,3)
 (0,2) --> (2,0)
-(6,0) --> (4,2)
+(3,0) --> (5,2)
+(9,6) --> (7,4)
+(8,0) --> (8,2)
+(7,4) --> (5,2)
+(8,2) --> (5,2)
 Succesfully read GameState!
 FEN:
-4303650880 1733886957257753604 29930553344 550628229130 0 68736253952 b 11 5
+8598388832 1731072757112243204 25635586048 805306490 0 36028797153181696 b 5 2
 Succesfully read GameState!
 FEN:
-4303650880 1733886957257753604 29930553344 550628229186 0 68736253952 r 12 6
+8598388832 1731072207356429316 25635586048 550561120314 0 36028797153181696 r 6 3
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="9" y="7" direction="UP_LEFT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="0" y="5" direction="DOWN_RIGHT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 836608
+Nodes analyzed: 842752
 Searched to depth: 6
-Score: 2.6761369209216452
+Score: -0.2988371792448712
 PV:
+(0,4) --> (2,6)
+(3,0) --> (5,2)
 (9,2) --> (7,0)
-(5,0) --> (6,1)
-(9,8) --> (6,5)
-(0,6) --> (2,4)
-(3,0) --> (6,3)
-(0,7) --> (3,4)
+(4,0) --> (6,2)
+(0,3) --> (2,5)
+(5,0) --> (5,3)
 Succesfully read GameState!
 FEN:
-4572086272 1733886957257753604 29662117888 550628229186 0 68736253952 b 13 6
+8598388832 1154611592491959300 25635586048 550561120314 0 36028797153181696 b 7 3
 Succesfully read GameState!
 FEN:
-4572086272 1733886957257753604 29662117888 550628233280 0 68736253952 r 14 7
+8598388832 1154611592491959300 25635586048 550628229162 0 36028797153181696 r 8 4
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="3" y="9" direction="DOWN_RIGHT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="0" y="6" direction="UP_RIGHT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 814080
+Nodes analyzed: 723968
 Searched to depth: 6
-Score: 3.234608633472365
+Score: 0.09838961003239444
 PV:
-(3,0) --> (6,3)
-(1,7) --> (5,3)
-(0,2) --> (2,0)
-(7,8) --> (9,6)
-(0,8) --> (4,4)
+(0,3) --> (3,0)
+(7,0) --> (9,2)
+(9,3) --> (8,4)
+(6,0) --> (6,2)
+(9,5) --> (7,5)
+(1,7) --> (4,7)
+Succesfully read GameState!
+FEN:
+12893356096 1154611592491959300 21340618752 550628229162 0 36028797153181696 b 9 4
+Succesfully read GameState!
+FEN:
+12893356096 1154611592491959300 4160765952 550628229162 0 36028797153181696 r 10 5
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="2" y="8" direction="RIGHT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 834560
+Searched to depth: 6
+Score: 0.2859477711373817
+PV:
+(2,1) --> (4,1)
+(7,0) --> (9,2)
+(3,0) --> (1,2)
+(4,9) --> (4,6)
+(0,5) --> (3,2)
+(1,7) --> (4,7)
+Succesfully read GameState!
+FEN:
+12887064640 1154611592491959300 4160765952 550628229162 0 36028797153181696 b 11 5
+Succesfully read GameState!
+FEN:
+12887064640 1154611592491959300 4160765952 70919305297962 0 36028797153181696 r 12 6
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="0" y="4" direction="UP_RIGHT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 794624
+Searched to depth: 6
+Score: 0.8902979988624811
+PV:
+(0,5) --> (3,2)
+(1,2) --> (3,4)
+(3,0) --> (3,4)
+(0,7) --> (3,4)
+(0,8) --> (0,6)
 (6,0) --> (4,2)
 Succesfully read GameState!
 FEN:
-277118976 -7489485079597022204 29662117888 550628233280 0 68736253952 b 15 7
+12887068736 1154048642538537988 4160765952 70919305297962 0 36028797153181696 b 13 6
 Succesfully read GameState!
 FEN:
-277118976 -7489485079597022204 29662117888 550628261952 0 68736253952 r 16 8
+12887068736 1154048642538537988 4160765952 70919313686568 0 36028797153181696 r 14 7
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="0" y="7" direction="UP_RIGHT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="3" y="9" direction="DOWN_LEFT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 848896
+Nodes analyzed: 790528
 Searched to depth: 6
-Score: 4.066982627299547
+Score: 0.9417741345259332
 PV:
-(0,2) --> (2,0)
-(3,7) --> (3,5)
-(0,8) --> (3,8)
-(4,0) --> (6,2)
-(3,8) --> (3,5)
+(3,0) --> (1,2)
+(0,6) --> (2,4)
+(0,8) --> (2,8)
+(0,7) --> (2,5)
+(9,4) --> (6,7)
+(7,0) --> (5,2)
+Succesfully read GameState!
+FEN:
+8592117824 1154048642538537988 4160749568 70919313686568 0 36028797153181696 b 15 7
+Succesfully read GameState!
+FEN:
+8592117824 1154048642538537988 4160749568 70927903621152 0 36028797153181696 r 16 8
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="2" y="3" direction="RIGHT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 851968
+Searched to depth: 6
+Score: 2.2619058330239827
+PV:
+(2,6) --> (6,6)
+(0,6) --> (2,4)
+(9,4) --> (6,7)
 (6,0) --> (6,3)
+(9,6) --> (6,3)
+(4,9) --> (6,7)
 Succesfully read GameState!
 FEN:
-8867020800 -7489485079597022204 21072183296 550628261952 0 68736253952 b 17 8
+8592117824 1154048513689519108 4160749568 70919313686560 0 36028797153181696 b 17 8
 Succesfully read GameState!
 FEN:
-8867020800 -7489485079597022204 21072183296 282025604939840 0 68736253952 r 18 9
+8592117824 1154048513689519108 4160749568 70953673424896 0 36028797153181696 r 18 9
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="9" y="6" direction="UP_LEFT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 861184
-Searched to depth: 6
-Score: 3.9773233131848063
-PV:
-(9,3) --> (6,0)
-(3,7) --> (0,4)
-(9,8) --> (6,5)
-(4,0) --> (2,2)
-(0,8) --> (1,8)
-(0,6) --> (3,3)
-Succesfully read GameState!
-FEN:
-9403891712 -8642406584203869180 20535312384 282025604939840 0 68736253952 b 19 9
-Succesfully read GameState!
-FEN:
-9403891712 -8642406584203869180 20535312384 288512401488216128 0 68736253952 r 20 10
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="0" y="1" direction="DOWN_RIGHT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 931840
-Searched to depth: 6
-Score: 4.354562120645887
-PV:
-(0,8) --> (1,9)
-(3,7) --> (1,9)
-(9,8) --> (6,5)
-(0,7) --> (2,7)
-(0,4) --> (0,6)
-(5,0) --> (3,2)
-Succesfully read GameState!
-FEN:
-9403891712 -8642406584204393212 20535312384 288512401488216128 0 68736253952 b 21 10
-Succesfully read GameState!
-FEN:
-9403891712 -8642406584204393212 20535312384 288512401756651520 0 68736253952 r 22 11
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="1" y="0" direction="UP_RIGHT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 1056768
-Searched to depth: 6
-Score: 4.670900968875724
-PV:
-(1,9) --> (3,7)
-(0,7) --> (0,4)
-(6,0) --> (6,2)
-(4,0) --> (2,2)
-(9,8) --> (6,5)
-(1,7) --> (1,3)
-Succesfully read GameState!
-FEN:
-9403891712 -8642406584137284604 20535312384 288512401689542656 0 68736253952 b 23 11
-Succesfully read GameState!
-FEN:
-9403891712 -8642406584137284604 20401225728 288512401689542656 0 68736253952 r 24 12
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="7" y="0" direction="UP"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 1076224
-Searched to depth: 6
-Score: 5.250504258921454
-PV:
-(7,9) --> (7,5)
-(0,7) --> (0,4)
-(6,0) --> (6,2)
-(4,0) --> (2,2)
-(9,8) --> (6,5)
-(1,7) --> (1,3)
-Succesfully read GameState!
-FEN:
-9403891712 -8642402186090773504 20401225728 288512401689542656 0 68736253952 b 25 12
-Succesfully read GameState!
-FEN:
-9403891712 -8642402186090773504 20401094784 288512401689542656 0 68736253952 r 26 13
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
 	<data class="move" x="9" y="1" direction="UP_LEFT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 974848
+Nodes analyzed: 846848
 Searched to depth: 6
-Score: 5.631148947441885
+Score: 2.75684690321596
 PV:
-(9,8) --> (6,5)
-(5,0) --> (3,2)
-(9,5) --> (7,3)
-(0,7) --> (0,4)
-(7,1) --> (5,3)
-(0,4) --> (3,7)
-Succesfully read GameState!
-FEN:
-9403891712 -8642393389997752320 20401094784 288512401689542656 0 68736253952 b 27 13
-Succesfully read GameState!
-FEN:
-9403891712 -8642393389997752320 20401094656 297519600944283648 0 68736253952 r 28 14
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="7" y="8" direction="LEFT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 926720
-Searched to depth: 6
-Score: 5.891826001116281
-PV:
-(7,1) --> (5,1)
-(0,7) --> (0,4)
-(5,1) --> (1,5)
-(6,4) --> (3,1)
-(3,7) --> (0,4)
-(4,0) --> (1,3)
-Succesfully read GameState!
-FEN:
-9404678144 -8642393389997752320 20401094656 297519600944283648 0 68736253952 b 29 14
-Succesfully read GameState!
-FEN:
-9404678144 -8642393389997752320 19327356928 297519600944283648 0 68736253952 r 30 15
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="5" y="8" direction="DOWN_LEFT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 1053696
-Searched to depth: 6
-Score: 6.054182557679471
-PV:
-(5,1) --> (1,5)
-(1,7) --> (2,6)
-(6,0) --> (6,4)
-(1,0) --> (1,3)
-(7,0) --> (7,3)
-(2,6) --> (2,2)
-Succesfully read GameState!
-FEN:
-9403629568 -8642111915021041664 19327356928 297238125967572992 0 68736253952 b 31 15
-Succesfully read GameState!
-FEN:
-9403629568 -8642111915021041664 19327356928 432346114788687872 0 68736253952 r 32 16
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="2" y="9" direction="DOWN"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 1157120
-Searched to depth: 7
-Score: 9.077272943070087
-PV:
-(2,0) --> (2,4)
-(0,7) --> (0,4)
-(9,5) --> (5,5)
-(4,0) --> (4,1)
-(9,6) --> (5,2)
-(3,2) --> (0,5)
-(1,5) --> (5,1)
-Succesfully read GameState!
-FEN:
-813694976 -8497996726945185792 19327356928 288230926712832000 0 68736253952 b 33 16
-Succesfully read GameState!
-FEN:
-813694976 -8497996726945185792 17179881472 288230926712832000 0 68736253952 r 34 17
-Got a move request!
-Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="7" y="9" direction="DOWN_LEFT"/>
-</room>
-Succesfully sent move!
-Nodes analyzed: 1178624
-Searched to depth: 6
-Score: 6.534488870824903
-PV:
+(9,8) --> (7,6)
+(0,6) --> (2,4)
+(9,4) --> (6,7)
+(8,0) --> (2,0)
+(9,3) --> (7,5)
 (7,0) --> (5,2)
-(2,2) --> (5,2)
-(9,6) --> (5,2)
-(3,2) --> (5,2)
-(1,5) --> (5,5)
-(1,0) --> (1,3)
 Succesfully read GameState!
 FEN:
-545260544 -8497996726945185792 17179881472 288230926712832000 0 68736253952 b 35 17
+8592117824 1154048517984485380 4160749568 70953673424896 0 36028797153181696 b 19 9
 Succesfully read GameState!
 FEN:
-545260544 -8497996726945185792 33566720 288230926712832000 0 68736253952 r 36 18
+8592117824 1154048517984485380 4160749568 211690624909312 0 36028797153181696 r 20 10
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="9" y="4" direction="DOWN_LEFT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="7" y="0" direction="UP_LEFT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 1105920
+Nodes analyzed: 936960
 Searched to depth: 6
-Score: 6.653190274103484
+Score: 3.6732137104870635
 PV:
-(9,5) --> (8,6)
-(0,1) --> (1,2)
-(2,7) --> (4,5)
-(3,2) --> (6,5)
-(2,4) --> (6,4)
-(2,2) --> (5,2)
+(7,9) --> (4,6)
+(7,0) --> (9,2)
+(9,4) --> (6,7)
+(1,7) --> (5,3)
+(2,0) --> (4,2)
 Succesfully read GameState!
 FEN:
-545260544 -8497997824309329920 33566720 288230926712832000 0 68736253952 b 37 18
+8592117824 1154048552344223744 4160749568 211656265170944 0 36028797153181696 b 21 10
 Succesfully read GameState!
 FEN:
-545260544 -8497997824309329920 28672 288230926712832000 0 68736253952 r 38 19
+8592117824 1154048552344223744 4160749568 246840628871168 0 36028797153181696 r 22 11
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="2" y="2" direction="UP"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="4" y="8" direction="DOWN"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 1078272
+Nodes analyzed: 958464
 Searched to depth: 6
-Score: 6.6794095740044055
+Score: 3.950038621382297
 PV:
-(2,7) --> (2,3)
-(3,2) --> (3,4)
-(9,6) --> (6,6)
-(1,4) --> (2,5)
-(2,3) --> (1,4)
-(2,2) --> (5,2)
+(4,1) --> (4,5)
+(5,0) --> (3,2)
+(9,5) --> (5,5)
+(1,7) --> (5,3)
+(5,5) --> (5,3)
+(7,0) --> (5,2)
 Succesfully read GameState!
 FEN:
-545260552 -8497997824443547648 28672 288230926712832000 0 68736253952 b 39 19
+8590020672 1154083736716312576 4160749568 211656256782336 0 36028797153181696 b 23 11
 Succesfully read GameState!
 FEN:
-545260552 -9074458576746971136 28672 864691678479384576 0 68736253952 r 40 20
+8590020672 1154083736716312576 4160749569 211655988346880 0 36028797153181696 r 24 12
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="3" y="2" direction="UP_LEFT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="3" y="7" direction="UP_RIGHT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 1158144
+Nodes analyzed: 1007616
 Searched to depth: 6
-Score: 7.311236047885513
+Score: 5.046141710827773
 PV:
-(3,7) --> (0,4)
-(1,4) --> (2,5)
-(1,5) --> (5,1)
-(1,2) --> (5,2)
-(9,6) --> (5,2)
-(2,2) --> (5,2)
+(3,2) --> (5,0)
+(0,6) --> (2,4)
+(9,1) --> (9,7)
+(5,3) --> (5,1)
+(0,8) --> (3,5)
+(7,0) --> (9,2)
 Succesfully read GameState!
 FEN:
-545260552 -8497997824510656512 28672 288230926175961088 0 68736253952 b 41 20
+9663758400 1154083736716312576 3087007745 211655988346880 0 36028797153181696 b 25 12
 Succesfully read GameState!
 FEN:
-545260552 -8497997824510656512 28672 288230926444396544 0 68736253952 r 42 21
+9663758400 1154083736716312576 3087007745 144326294308388864 0 36028797153181696 r 26 13
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="1" y="4" direction="UP_RIGHT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="9" y="4" direction="LEFT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 1227776
+Nodes analyzed: 1046528
+Searched to depth: 6
+Score: 5.161569678051214
+PV:
+(9,5) --> (5,5)
+(3,5) --> (3,4)
+(9,6) --> (8,5)
+(4,0) --> (5,1)
+(0,8) --> (3,5)
+(5,1) --> (5,5)
+Succesfully read GameState!
+FEN:
+9663758400 1154100229390729216 3087007745 144326294308388864 0 36028797153181696 b 27 13
+Succesfully read GameState!
+FEN:
+9663758400 1154100229390729216 3087269889 144255925564211200 0 36028797153181696 r 28 14
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="9" y="8" direction="LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1120256
+Searched to depth: 6
+Score: 5.945348773688488
+PV:
+(9,1) --> (7,1)
+(5,3) --> (5,0)
+(9,3) --> (6,0)
+(2,5) --> (2,2)
+(9,6) --> (5,6)
+(2,2) --> (5,5)
+Succesfully read GameState!
+FEN:
+9663955008 1154100229390729216 3087007745 144255925564211200 0 36028797153181696 b 29 14
+Succesfully read GameState!
+FEN:
+8590213184 1154100229390729216 4160749568 144255925564211200 0 36028797153181696 r 30 15
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="1" y="7" direction="DOWN_RIGHT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1224704
 Searched to depth: 7
-Score: 12.197553637179357
+Score: 8.465034744051781
 PV:
-(1,5) --> (5,1)
-(1,2) --> (5,2)
-(6,5) --> (3,2)
-(2,2) --> (1,1)
-(2,1) --> (4,3)
-(5,2) --> (3,2)
-(2,3) --> (5,3)
+(1,2) --> (3,4)
+(2,5) --> (2,2)
+(9,6) --> (8,5)
+(2,2) --> (5,5)
+(0,8) --> (3,5)
+(2,4) --> (4,2)
+(3,4) --> (5,6)
 Succesfully read GameState!
 FEN:
-546309128 -8498279299487367168 28672 288230926444396544 0 68736253952 b 43 21
+8590196800 1226157823428657152 4160749568 144255925564211200 0 36028797153181696 b 31 15
 Succesfully read GameState!
 FEN:
-546309128 -9074740051790790656 28672 864691678210949120 0 68736253952 r 44 22
+8590196800 1226157823428657152 4160751616 140737488355328 0 36028797153181696 r 32 16
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="6" y="4" direction="UP_LEFT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="2" y="9" direction="DOWN_RIGHT"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 1343488
+Nodes analyzed: 1231872
+Searched to depth: 7
+Score: 9.381439630817368
+PV:
+(2,0) --> (4,2)
+(8,0) --> (3,0)
+(9,3) --> (6,0)
+(7,0) --> (4,3)
+(9,6) --> (8,7)
+(3,0) --> (3,2)
+(9,4) --> (9,6)
+Succesfully read GameState!
+FEN:
+264256 1226157823428657152 4160749568 140737488355328 0 36028797153181696 b 33 16
+Succesfully read GameState!
+FEN:
+264256 1226157823428657152 4160749568 144115188075855872 0 36028797153181696 r 34 17
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="9" y="3" direction="UP_LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1303552
+Searched to depth: 7
+Score: 10.080386074515372
+PV:
+(9,6) --> (8,5)
+(2,4) --> (2,3)
+(4,2) --> (6,0)
+(7,0) --> (5,2)
+(0,8) --> (3,5)
+(2,3) --> (4,1)
+(6,0) --> (5,1)
+(5,2) --> (8,5)
+Succesfully read GameState!
+FEN:
+264256 1226160021378170880 4160749568 144115188075855872 0 36028797153181696 b 35 17
+Succesfully read GameState!
+FEN:
+264256 1226160021378170880 4160749576 0 0 36028797153181696 r 36 18
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="9" y="7" direction="UP_LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1323008
+Searched to depth: 6
+Score: 8.560993094001779
+PV:
+(9,2) --> (7,0)
+(8,0) --> (8,2)
+(7,0) --> (7,3)
+(2,3) --> (4,1)
+(4,2) --> (2,4)
+Succesfully read GameState!
+FEN:
+268699648 1226160021378170880 3892314120 0 0 36028797153181696 b 37 18
+Succesfully read GameState!
+FEN:
+268699648 1226160021378170880 3894411264 0 0 36028797153181696 r 38 19
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="4" y="3" direction="UP_LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1358848
+Searched to depth: 6
+Score: 6.05366748501352
+PV:
+(4,6) --> (3,5)
+(8,0) --> (8,2)
+(7,0) --> (5,2)
+(4,0) --> (5,1)
+(7,6) --> (8,7)
+Succesfully read GameState!
+FEN:
+268699648 1226230355762610176 3894411264 0 0 36028797153181696 b 39 19
+Succesfully read GameState!
+FEN:
+268699648 1226230355762610176 3760193664 0 0 36028797153181696 r 40 20
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="3" y="4" direction="UP_RIGHT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1376256
 Searched to depth: 8
-Score: 15.28895625337986
+Score: -0.7237702331947116
 PV:
-(6,5) --> (3,2)
-(1,2) --> (1,0)
-(3,2) --> (3,3)
-(1,0) --> (3,0)
-(2,1) --> (4,1)
-(0,4) --> (0,2)
-(4,1) --> (4,2)
-(0,2) --> (4,2)
+(3,5) --> (6,2)
+(8,2) --> (6,4)
+(5,5) --> (5,3)
+(6,4) --> (3,4)
+(4,5) --> (4,1)
+(3,4) --> (1,4)
+(4,1) --> (6,3)
+(1,4) --> (3,2)
 Succesfully read GameState!
 FEN:
-546313224 -9074748847883812864 24576 864691678210949120 0 68736253952 b 45 22
+268700160 1226159987018432512 3760193664 0 0 36028797153181696 b 41 20
 Succesfully read GameState!
 FEN:
-546313224 -9074748847883812864 24608 576461302059237376 0 68736253952 r 46 23
+268700160 1226159987018432512 3760193536 9007199254740992 0 36028797153181696 r 42 21
 Got a move request!
 Wrote to stream:
-<room roomId="8ccb82af-06a1-440b-8368-46972d44bb5f">
-	<data class="move" x="2" y="8" direction="DOWN_RIGHT"/>
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="5" y="4" direction="UP"/>
 </room>
 Succesfully sent move!
-Nodes analyzed: 1588224
-Searched to depth: 10
-Score: 29952.08
+Nodes analyzed: 1166336
+Searched to depth: 8
+Score: -3.1063995604527577
 PV:
-(2,1) --> (4,3)
-(0,6) --> (1,7)
+(5,5) --> (5,3)
+(6,4) --> (3,4)
+(4,5) --> (4,1)
+(3,4) --> (5,2)
+(0,8) --> (0,7)
+(4,0) --> (6,2)
+(7,1) --> (5,1)
+(5,0) --> (7,2)
 Succesfully read GameState!
 FEN:
-537924618 -9074748847883812864 24608 576461302059237376 0 68736253952 b 47 23
+268700161 1226142394832388096 3760193536 9007199254740992 0 36028797153181696 b 43 21
+Succesfully read GameState!
+FEN:
+268700161 1154084800794460160 3760193536 72057594037927936 0 36028797153181696 r 44 22
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="4" y="4" direction="UP"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 987136
+Searched to depth: 10
+Score: -29947.96
+PV:
+(4,5) --> (4,1)
+(3,4) --> (5,2)
+(0,8) --> (0,7)
+(4,0) --> (6,2)
+(5,3) --> (7,3)
+(6,0) --> (4,2)
+(7,3) --> (8,2)
+(6,2) --> (5,1)
+Succesfully read GameState!
+FEN:
+270797313 1154049616422371328 3758096384 72057594037927936 0 36028797153181696 b 45 22
+Succesfully read GameState!
+FEN:
+270797313 1154049616422371328 3758096388 0 0 36028797153181696 r 46 23
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="5" y="6" direction="UP"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1649664
+Searched to depth: 7
+Score: -0.7897988736257151
+PV:
+(5,3) --> (5,1)
+(3,3) --> (1,3)
+(4,2) --> (2,2)
+(1,3) --> (3,3)
+(9,4) --> (7,2)
+(3,3) --> (3,2)
+(7,2) --> (5,0)
+Succesfully read GameState!
+FEN:
+271845888 1154049616422371328 3758096388 0 0 36028797153181696 b 47 23
+Succesfully read GameState!
+FEN:
+271845888 1154049616422371328 3758100480 0 0 36028797153181696 r 48 24
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="4" y="7" direction="UP_LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1599488
+Searched to depth: 9
+Score: 0.66110153044656
+PV:
+(4,2) --> (3,1)
+(3,2) --> (5,4)
+(6,6) --> (5,5)
+(5,4) --> (7,4)
+(5,5) --> (5,2)
+(6,0) --> (6,2)
+(0,8) --> (3,5)
+(6,2) --> (6,1)
+(9,4) --> (6,1)
+(7,4) --> (6,4)
+Succesfully read GameState!
+FEN:
+276038144 1154049616422371328 3758100480 0 0 36028797153181696 b 49 24
+Succesfully read GameState!
+FEN:
+276038144 1154049616422371328 3758112768 0 0 36028797153181696 r 50 25
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="9" y="6" direction="LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1670144
+Searched to depth: 8
+Score: 1.6920991078965937
+PV:
+(9,3) --> (8,3)
+(1,2) --> (2,3)
+(7,0) --> (7,3)
+(2,3) --> (5,3)
+(3,1) --> (3,2)
+(5,0) --> (8,3)
+(7,6) --> (5,4)
+(8,3) --> (6,1)
+Succesfully read GameState!
+FEN:
+276038144 2306971121029218304 3758112768 0 0 36028797153181696 b 51 25
+Succesfully read GameState!
+FEN:
+276038144 2306971121029218304 3766484992 0 0 36028797153181696 r 52 26
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="8" y="6" direction="UP_LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1857536
+Searched to depth: 8
+Score: 29940.08
+PV:
+(8,3) --> (5,0)
+(2,1) --> (4,3)
+(9,4) --> (8,4)
+(4,3) --> (6,5)
+(7,0) --> (7,3)
+(6,5) --> (8,5)
+(6,6) --> (6,3)
+(6,0) --> (9,0)
+Succesfully read GameState!
+FEN:
+1349779968 1128111815524352 2692743168 0 0 36028797153181696 b 53 26
+Succesfully read GameState!
+FEN:
+1349779968 1128111815524352 6979321856 0 0 36028797153181696 r 54 27
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="9" y="5" direction="LEFT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 1898496
+Searched to depth: 14
+Score: 29940.1
+PV:
+(9,4) --> (8,4)
+(3,0) --> (2,1)
+(7,0) --> (7,3)
+(2,1) --> (3,0)
+(0,8) --> (3,5)
+(3,0) --> (2,1)
+Succesfully read GameState!
+FEN:
+1349779968 2254011722366976 6979321856 0 0 36028797153181696 b 55 27
+Succesfully read GameState!
+FEN:
+1349779968 2254011722366976 2692743168 0 0 36028797153181696 r 56 28
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="7" y="9" direction="DOWN"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 537521
+Searched to depth: 100
+Score: 29940.1
+PV:
+(7,0) --> (7,3)
+(2,1) --> (3,0)
+(0,8) --> (3,5)
+(3,0) --> (2,1)
+Succesfully read GameState!
+FEN:
+1081344512 4613940030149754880 2692743168 0 0 36028797153181696 b 57 28
+Succesfully read GameState!
+FEN:
+1081344512 4613940030149754880 6979321856 0 0 36028797153181696 r 58 29
+Got a move request!
+Wrote to stream:
+<room roomId="88d98ea7-8092-4de2-a931-9df399a36549">
+	<data class="move" x="0" y="1" direction="UP_RIGHT"/>
+</room>
+Succesfully sent move!
+Nodes analyzed: 7123
+Searched to depth: 100
+Score: 29940.1
+PV:
+(0,8) --> (3,5)
+(3,0) --> (2,1)
+Succesfully read GameState!
+FEN:
+1081344512 4614010398893408256 6979321856 0 0 36028797153181696 b 59 29

@@ -2,7 +2,7 @@ use crate::logging::Logger;
 use std::env;
 use std::io::prelude::*;
 use std::net::TcpStream;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use crate::game_state::{GameState, GameColor};
 use crate::search::{Search, TimeControl};
 
@@ -135,8 +135,10 @@ pub fn go() {
                 }
             }
             current_parsing.clear();
+            let before = Instant::now();
             //Search
             let result = search.run(100, &mut my_gamestate);
+            let duration = Instant::now().duration_since(before).as_millis();
             let mv = result.stack[0];
             let x = 9 - mv.from % 10;
             let y = mv.from / 10;
@@ -171,7 +173,7 @@ pub fn go() {
             let inner_statement = &format!("\t<data class=\"move\" x=\"{}\" y=\"{}\" direction=\"{}\"/>", x, y, direction);
             let statement = &format!("<room roomId=\"{}\">\n{}\n</room>", id, inner_statement);
             write_to_stream(&mut stream, &log, statement);
-            log.log("Succesfully sent move!\n", false);
+            log.log(&format!("Succesfully sent move after {}ms\n",duration), false);
             log.log(&format!("Nodes analyzed: {}\n", search.nodes_analyzed), false);
             log.log(&format!("Searched to depth: {}\n", result.depth), false);
             log.log(&format!("Score: {}\n", result.score), false);
