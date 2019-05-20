@@ -39,7 +39,7 @@ pub fn go() {
         } else if arg[0] == "makemove" {
             let from = arg[1].parse::<u64>().unwrap();
             let to = arg[2].parse::<u64>().unwrap();
-            let move_list = get_possible_moves(&my_state, &my_state.move_color);
+            let move_list = get_possible_moves(&my_state, &my_state.move_color,false);
             let mut found = false;
             for mv in move_list {
                 if mv.from == from as u8 && mv.to == to as u8 {

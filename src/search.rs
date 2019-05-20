@@ -150,7 +150,17 @@ pub fn alpha_beta(search: &mut Search, mut alpha: f64, mut beta: f64, game_state
     }
 
     search.nodes_analyzed += 1;
-    let mut move_list = get_possible_moves(&game_state, &game_state.move_color);
+
+    //TODO experimental
+    if depth_left == 0 && match game_state.move_color {
+        GameColor::Red => false,
+        GameColor::Blue => true
+    } && is_one_fish_missing(game_state.blaue_fische) {
+        depth_left += 1;
+    }
+
+    //Use early-return, if we are in d0 nodes, as we only need to know if there is one legal move
+    let mut move_list = get_possible_moves(&game_state, &game_state.move_color, depth_left == 0);
     game_state.analyze(&move_list);
     //Early leafs
     if game_state.game_over() {
@@ -168,14 +178,6 @@ pub fn alpha_beta(search: &mut Search, mut alpha: f64, mut beta: f64, game_state
         } else {
             panic!("Invalid game over situation");
         }
-    }
-
-    //TODO experimental
-    if depth_left == 0 && match game_state.move_color {
-        GameColor::Red => false,
-        GameColor::Blue => true
-    } && is_one_fish_missing(game_state.blaue_fische) {
-        depth_left += 1;
     }
     //Probe TB
     let mut move_ordering_index = 0;
@@ -249,6 +251,17 @@ pub fn alpha_beta(search: &mut Search, mut alpha: f64, mut beta: f64, game_state
         }
         return curr_pv;
     }
+
+    /*if depth_left == 2 && game_state.plies_played < 58 && beta - alpha <= 0.001 {
+        if game_state.move_color == GameColor::Red && !is_one_fish_missing(game_state.rote_fische) && !is_one_fish_missing(game_state.blaue_fische)
+            || game_state.move_color == GameColor::Blue && !is_one_fish_missing(game_state.blaue_fische) {
+            let eval = rating(&game_state, false) * maximizing_player as f64;
+            if eval - 1.5 > beta {
+                curr_pv.score = eval;
+                return curr_pv;
+            }
+        }
+    }*/
 
     let not_in_check = match game_state.move_color {
         GameColor::Red => true,
@@ -350,7 +363,7 @@ pub fn alpha_beta(search: &mut Search, mut alpha: f64, mut beta: f64, game_state
     for i in 0..move_list.len() {
         //println!("{}", move_list[i]);
         if i >= move_ordering_index {
-            sort_next_move(i,&mut move_list,&mut ratings);
+            sort_next_move(i, &mut move_list, &mut ratings);
         }
         let mut next_state = make_move(&game_state, &move_list[i]);
         let mut following_pv: PrincipialVariation;

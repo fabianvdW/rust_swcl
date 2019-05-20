@@ -10,6 +10,7 @@ use colored::*;
 pub const DIRECTIONS: [i8; 8] = [10, 11, 1, -9, -10, -11, -1, 9];
 
 #[allow(dead_code)]
+#[derive(PartialEq)]
 pub enum GameColor {
     Red,
     Blue,

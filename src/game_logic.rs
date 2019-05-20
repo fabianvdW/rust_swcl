@@ -49,7 +49,7 @@ pub fn get_schwarm_board(mut meine_fische: u128) -> u128 {
 }
 
 #[inline(always)]
-pub fn get_possible_moves(gs: &GameState, gc: &GameColor) -> Vec<GameMove> {
+pub fn get_possible_moves(gs: &GameState, gc: &GameColor, early_return: bool) -> Vec<GameMove> {
     let mut res: Vec<GameMove> = Vec::with_capacity(90);
     let (meine_fische, gegner_fische) = match gc {
         GameColor::Red => (gs.rote_fische, gs.blaue_fische),
@@ -67,6 +67,9 @@ pub fn get_possible_moves(gs: &GameState, gc: &GameColor) -> Vec<GameMove> {
                     if (destination_square & (meine_fische | gs.kraken)) == 0 && (constants::ATTACK_TWO_SIDED[fisch_pos][i] & destination_square) != 0 {
                         if squares < 2 || (constants::ATTACK_ONE_SIDED_SKIPPED_SQUARES[fisch_pos][i + if j == 0 { 0usize } else { 4usize }][squares - 2] & gegner_fische) == 0u128 {
                             res.push(GameMove::new(fisch_pos as u8, destination as u8));
+                            if early_return {
+                                return res;
+                            }
                         }
                     }
                 }

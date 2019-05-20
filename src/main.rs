@@ -18,7 +18,8 @@ extern crate colored;
 
 use rand::Rng;
 use crate::search::{Search, TimeControl};
-fn main(){
+
+fn main() {
     localtesting::protocol::go();
     //online::protocol::go();
 }
@@ -28,11 +29,11 @@ fn play_rand_games() {
     let mut moves: Vec<GameMove>;
     for i in 0..100000 {
         curr_state = GameState::standard();
-        moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color);
+        moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color, false);
         curr_state.analyze(&moves);
         while !curr_state.game_over() {
             curr_state = game_logic::make_move(&curr_state, &moves[rand::thread_rng().gen_range(0, moves.len())]);
-            let moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color);
+            let moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color, false);
             curr_state.analyze(&moves);
         }
     }
@@ -42,7 +43,7 @@ fn perft_div(g: &mut GameState, depth: u8) -> u64 {
     if depth == 0u8 {
         return 1u64;
     }
-    let moves = game_logic::get_possible_moves(&g, &g.move_color);
+    let moves = game_logic::get_possible_moves(&g, &g.move_color, false);
     g.analyze(&moves);
     if g.game_over() {
         return 1;
@@ -60,7 +61,7 @@ fn perft(g: &mut GameState, depth: u8) -> u64 {
     if depth == 0u8 {
         return 1u64;
     }
-    let moves = game_logic::get_possible_moves(&g, &g.move_color);
+    let moves = game_logic::get_possible_moves(&g, &g.move_color, false);
     g.analyze(&moves);
     if g.game_over() {
         return 1;
