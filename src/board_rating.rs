@@ -1,6 +1,8 @@
 use super::game_state::{GameState, GameColor};
 use super::game_logic;
+use super::constants;
 use super::constants::RAND;
+use crate::game_state::DIRECTIONS;
 
 pub const MAX_DIST: f64 = 6.36396103068;
 pub const MID_X: f64 = 4.5;
@@ -82,6 +84,52 @@ impl Schwarm {
     pub fn new(gebiet: u128, size: usize, average_x: f64, average_y: f64, distance_to_mid: f64) -> Self {
         Schwarm { gebiet, size, average_x, average_y, distance_to_mid }
     }
+    pub fn calculate_mobility(&self, game_state: &GameState) -> f64 {
+        let mut gebiet_clone = self.gebiet;
+        let mut min_mobility = 100.0;
+        while gebiet_clone != 0u128 {
+            let fisch_pos = gebiet_clone.trailing_zeros() as usize;
+            //Calculate moibility for fish
+            let fisch_mobility = Schwarm::calculate_mobility_single_fish(&game_state, fisch_pos, min_mobility as usize) as f64;
+            if fisch_mobility < min_mobility {
+                min_mobility = fisch_mobility;
+            }
+            gebiet_clone ^= 1u128 << fisch_pos;
+        }
+        min_mobility
+    }
+
+    pub fn calculate_mobility_factor(mobility: f64) -> f64 {
+        4.0 * 0.5f64.powf(mobility / 5.0) - 1.0
+    }
+
+    pub fn calculate_mobility_single_fish(game_state: &GameState, fisch_pos: usize, curr_min: usize) -> usize {
+        let mut result = 0;
+        let is_red = game_state.rote_fische & (1u128 << fisch_pos) != 0u128;
+        let (meine_fische, gegner_fische) = if is_red {
+            (game_state.rote_fische, game_state.blaue_fische)
+        } else {
+            (game_state.blaue_fische, game_state.rote_fische)
+        };
+        for i in 0..4 {
+            let squares: usize = (constants::ATTACK_TWO_SIDED[fisch_pos][i] & (game_state.rote_fische | game_state.blaue_fische)).count_ones() as usize;
+            for j in 0..2 {
+                let destination: isize = fisch_pos as isize + DIRECTIONS[i] as isize * if j == 0 { 1isize } else { -1isize } * squares as isize;
+                if destination <= 99 && destination >= 0 {
+                    let destination_square: u128 = 1u128 << destination;
+                    if (destination_square & (meine_fische | game_state.kraken)) == 0u128 && (constants::ATTACK_TWO_SIDED[fisch_pos][i] & destination_square) != 0u128 {
+                        if squares < 2 || (constants::ATTACK_ONE_SIDED_SKIPPED_SQUARES[fisch_pos][i + if j == 0 { 0usize } else { 4usize }][squares - 2] & gegner_fische) == 0u128 {
+                            result += squares;
+                            if result >= curr_min {
+                                return result;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        result
+    }
     pub fn calculate_sichere_fische(&self) -> usize {
         let mut gebiet = self.gebiet;
         let mut res = 0;
@@ -138,11 +186,11 @@ impl Schwarm {
 pub fn rating(game_state: &GameState, verbose: bool) -> f64 {
     let (rote_schwaerme, biggest_roter_schwarm) = Schwarm::berechne_schwaerme(game_state.rote_fische);
     let (blaue_schwaerme, biggest_blauer_schwarm) = Schwarm::berechne_schwaerme(game_state.blaue_fische);
-    eval(game_state.plies_played as usize, game_state.rote_fische, &rote_schwaerme, &biggest_roter_schwarm, GameColor::Red, &biggest_blauer_schwarm, game_state.blaue_fische.count_ones() as usize, verbose)
-        - eval(game_state.plies_played as usize, game_state.blaue_fische, &blaue_schwaerme, &biggest_blauer_schwarm, GameColor::Blue, &biggest_roter_schwarm, game_state.rote_fische.count_ones() as usize, verbose)
+    eval(game_state.plies_played as usize, game_state.rote_fische, &rote_schwaerme, &biggest_roter_schwarm, GameColor::Red, &biggest_blauer_schwarm, game_state.blaue_fische.count_ones() as usize, verbose, &game_state)
+        - eval(game_state.plies_played as usize, game_state.blaue_fische, &blaue_schwaerme, &biggest_blauer_schwarm, GameColor::Blue, &biggest_roter_schwarm, game_state.rote_fische.count_ones() as usize, verbose, &game_state)
 }
 
-pub fn eval(plies_played: usize, meine_fische: u128, meine_schwaerme: &Vec<Schwarm>, my_biggest_schwarm: &Schwarm, my_color: GameColor, biggest_gegner_schwarm: &Schwarm, gegner_fische: usize, verbose: bool) -> f64 {
+pub fn eval(plies_played: usize, meine_fische: u128, meine_schwaerme: &Vec<Schwarm>, my_biggest_schwarm: &Schwarm, my_color: GameColor, biggest_gegner_schwarm: &Schwarm, gegner_fische: usize, verbose: bool, game_state: &GameState) -> f64 {
     let unskewed_phase = plies_played as f64 / 60.0;
     let phase = 1.0 - (1.0 - unskewed_phase).powf(2.0);
 
@@ -184,7 +232,8 @@ pub fn eval(plies_played: usize, meine_fische: u128, meine_schwaerme: &Vec<Schwa
     if my_biggest_schwarm.size < fisch_anzahl {
         let missing_fische = fisch_anzahl - my_biggest_schwarm.size;
         for s in meine_schwaerme {
-            abstand_zu_biggest_distanzen += (distance(s.average_x, my_biggest_schwarm.average_x, s.average_y, my_biggest_schwarm.average_y) / MAX_DIST).powf(2.0) * s.size as f64;
+            abstand_zu_biggest_distanzen += (distance(s.average_x, my_biggest_schwarm.average_x, s.average_y, my_biggest_schwarm.average_y) / MAX_DIST).powf(2.0) * s.size as f64 *
+                (1.0f64 + if game_state.plies_played > 30 { unskewed_phase.powf(2.0) * Schwarm::calculate_mobility_factor(s.calculate_mobility(&game_state)) } else { 0.0 });
         }
         abstand_zu_biggest_distanzen /= missing_fische as f64;
     }
