@@ -5,6 +5,7 @@ use std::time::Instant;
 use std::time::Duration;
 use crate::game_state::GameColor;
 use crate::game_logic::get_schwarm_board;
+use crate::constants;
 
 
 pub const CACHE_MASK: i64 = 16 * 2097152 - 1;
@@ -252,17 +253,6 @@ pub fn alpha_beta(search: &mut Search, mut alpha: f64, mut beta: f64, game_state
         return curr_pv;
     }
 
-    /*if depth_left == 2 && game_state.plies_played < 58 && beta - alpha <= 0.001 {
-        if game_state.move_color == GameColor::Red && !is_one_fish_missing(game_state.rote_fische) && !is_one_fish_missing(game_state.blaue_fische)
-            || game_state.move_color == GameColor::Blue && !is_one_fish_missing(game_state.blaue_fische) {
-            let eval = rating(&game_state, false) * maximizing_player as f64;
-            if eval - 1.5 > beta {
-                curr_pv.score = eval;
-                return curr_pv;
-            }
-        }
-    }*/
-
     let not_in_check = match game_state.move_color {
         GameColor::Red => true,
         GameColor::Blue => false
@@ -342,9 +332,18 @@ pub fn alpha_beta(search: &mut Search, mut alpha: f64, mut beta: f64, game_state
     }
 
     //History heuristic
+    let mut norm_score = 1.0;
     let mut ratings: Vec<f64> = vec![0.0; move_list.len()];
     for i in 0..move_list.len() {
         ratings[i] = search.hh_score[move_list[i].from as usize][move_list[i].to as usize] as f64 / search.bf_score[move_list[i].from as usize][move_list[i].to as usize] as f64;
+        if ratings[i] > norm_score {
+            norm_score = ratings[i];
+        }
+    }
+    //Normalize score and add distance to mid
+    for i in 0..move_list.len() {
+        ratings[i] /= 0.3333*norm_score;
+        ratings[i] += constants::DISTANCE_TO_MID[move_list[i].from as usize] - constants::DISTANCE_TO_MID[move_list[i].to as usize];
     }
     //Sort array
     /*for i in move_ordering_index..move_list.len() - 1 {

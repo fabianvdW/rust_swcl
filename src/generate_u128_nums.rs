@@ -1,5 +1,16 @@
 use super::game_state;
+use super::board_rating;
 
+#[allow(dead_code)]
+pub fn generate_distance_to_mid_table() -> String {
+    let mut res_str: String = String::new();
+    for i in 0..100 {
+        let x = i % 10;
+        let y = i / 10;
+        res_str.push_str(&format!("{},",board_rating::distance(x as f64, 4.5, y as f64, 4.5) / board_rating::MAX_DIST));
+    }
+    format!(": [f64;100] = [{}];", res_str)
+}
 
 #[allow(dead_code)]
 pub fn rand() -> String {

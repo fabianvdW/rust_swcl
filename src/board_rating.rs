@@ -161,11 +161,11 @@ pub fn eval(plies_played: usize, meine_fische: u128, meine_schwaerme: &Vec<Schwa
     let mut spielfeld_mitte_distanzen: f64 = 0.0;
     let mut gegner_biggest_schwarm_distanzen: f64 = 0.0;
     for s in meine_schwaerme {
-        spielfeld_mitte_distanzen += (distance(s.average_x, MID_X, s.average_y, MID_Y) / MAX_DIST).powf(2.0) * s.size as f64;
+        spielfeld_mitte_distanzen += (s.distance_to_mid / MAX_DIST).powf(2.0) * s.size as f64;
         gegner_biggest_schwarm_distanzen += (distance(s.average_x, biggest_gegner_schwarm.average_x, s.average_y, biggest_gegner_schwarm.average_y) / MAX_DIST).powf(2.0) * s.size as f64;
     }
     {
-        let distance_biggest_mid = (distance(my_biggest_schwarm.average_x, MID_X, my_biggest_schwarm.average_y, MID_Y) / MAX_DIST).powf(2.0);
+        let distance_biggest_mid = (my_biggest_schwarm.distance_to_mid / MAX_DIST).powf(2.0);
         spielfeld_mitte_distanzen += distance_biggest_mid * my_biggest_schwarm.size as f64;
         spielfeld_mitte_distanzen /= fisch_anzahl as f64;
         //TODO test sensibility
