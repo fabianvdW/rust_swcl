@@ -13,7 +13,7 @@ Caching durch Zobrist-Hashing und simpler Replacement-Heuristik. https://www.che
 
 Quiesence-Search wurde einige Zeit ausprobiert, aber verworfen.
 
-Genauso einige Pruning-Techniken wie Futility-Pruning & Razoring. Dies lässt sich aber durch den krassen Odd-Even-Effekt der Boardbewertungsfunktion erklären.
+Genauso einige Pruning-Techniken wie Futility-Pruning & Razoring. Das diese aber unerfolgreich waren lässt sich aber durch den krassen Odd-Even-Effekt der Boardbewertungsfunktion erklären.
 
 Alle Tests wurden im lokalen Spielleiter (siehe Java-Client) ausgiebig getestet.
 ## Boardbewertung
