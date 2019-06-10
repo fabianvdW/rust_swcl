@@ -50,7 +50,7 @@ pub fn go() {
     loop {
         let mut buf = [0; 2048];
         let bytes = stream.read(&mut buf).expect("Could not read from stream!");
-        let mut line = std::str::from_utf8(&buf[0..bytes]).expect("Could not convert to line");
+        let line = std::str::from_utf8(&buf[0..bytes]).expect("Could not convert to line");
         current_parsing.push_str(line);
         //log.log(&format!("Read from Stream:\n{}\n", line), false);
         if line.contains("<data class=\"result\">") {
@@ -173,7 +173,7 @@ pub fn go() {
             let inner_statement = &format!("\t<data class=\"move\" x=\"{}\" y=\"{}\" direction=\"{}\"/>", x, y, direction);
             let statement = &format!("<room roomId=\"{}\">\n{}\n</room>", id, inner_statement);
             write_to_stream(&mut stream, &log, statement);
-            log.log(&format!("Succesfully sent move after {}ms\n",duration), false);
+            log.log(&format!("Succesfully sent move after {}ms\n", duration), false);
             log.log(&format!("Nodes analyzed: {}\n", search.nodes_analyzed), false);
             log.log(&format!("Searched to depth: {}\n", result.depth), false);
             log.log(&format!("Score: {}\n", result.score), false);

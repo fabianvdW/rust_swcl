@@ -2,7 +2,6 @@ use super::game_state::{GameMove, GameState, GameStatus};
 use super::game_logic::{get_possible_moves, make_move, get_schwarm, make_null_move};
 use super::board_rating::{Schwarm, rating};
 use std::time::Instant;
-use std::time::Duration;
 use crate::game_state::GameColor;
 use crate::game_logic::get_schwarm_board;
 use crate::constants;

@@ -1,2 +1,2 @@
-cargo rustc --release --bin rust_swcl -- -C target-cpu=native 
+cargo rustc --release -- -C target-cpu=native
 pause

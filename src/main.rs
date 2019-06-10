@@ -10,24 +10,22 @@ pub mod localtesting;
 pub mod online;
 pub mod logging;
 
-use std::time::Instant;
-use self::game_state::{GameState, GameStatus, GameColor, GameMove};
+use self::game_state::{GameState, GameMove};
 
 extern crate rand;
 extern crate colored;
 
 use rand::Rng;
-use crate::search::{Search, TimeControl};
 
 fn main() {
-    localtesting::protocol::go();
-    //online::protocol::go();
+    //localtesting::protocol::go();
+    online::protocol::go();
 }
 
 fn play_rand_games() {
     let mut curr_state: GameState;
     let mut moves: Vec<GameMove>;
-    for i in 0..100000 {
+    for _ in 0..100000 {
         curr_state = GameState::standard();
         moves = game_logic::get_possible_moves(&curr_state, &curr_state.move_color, false);
         curr_state.analyze(&moves);

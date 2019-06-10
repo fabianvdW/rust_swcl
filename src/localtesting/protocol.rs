@@ -4,6 +4,7 @@ use crate::game_state::GameState;
 use std::env;
 use crate::logging::Logger;
 
+//This protocol can be used with the referee given in https://github.com/fabianvdW/SwClPiranha (Spielleiter.java)
 pub fn go() {
     let mut search = Search::new(TimeControl::MoveTime(1700));
     let mut my_state = GameState::standard();
@@ -39,7 +40,7 @@ pub fn go() {
         } else if arg[0] == "makemove" {
             let from = arg[1].parse::<u64>().unwrap();
             let to = arg[2].parse::<u64>().unwrap();
-            let move_list = get_possible_moves(&my_state, &my_state.move_color,false);
+            let move_list = get_possible_moves(&my_state, &my_state.move_color, false);
             let mut found = false;
             for mv in move_list {
                 if mv.from == from as u8 && mv.to == to as u8 {
@@ -55,6 +56,15 @@ pub fn go() {
             log.log(&format!("FEN:\n{}\n", my_state.to_fen()), false);
         } else if arg[0] == "end" {
             break;
+        } else if arg[0] == "fen" {
+            let mut fen = String::new();
+            for i in 1..arg.len() {
+                fen.push_str(&format!("{} ", arg[i]));
+            }
+            my_state = GameState::from_fen(&fen);
+            println!("{}",my_state);
+        }else if arg[0]=="static"{
+            println!("{}",crate::board_rating::rating(&my_state,true));
         }
     }
 }
